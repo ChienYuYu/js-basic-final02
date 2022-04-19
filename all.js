@@ -55,15 +55,16 @@ function tabStatusChange(tabStatus) {
 }
 
 //搜尋-----------------------------------
-const keyword = document.querySelector('.keyword');
+const textInput = document.querySelector('.text-input');
 const searchBtn = document.querySelector('.search');
-searchBtn.addEventListener('click', function (e) {
-    if (keyword.value.trim() == '') {
+searchBtn.addEventListener('click', searchData);
+function searchData(){
+    if (textInput.value.trim() == '') {
         alert('請輸入搜尋內容');
         return
     }
     //let filterData = [];
-    let filterData = data.filter((item) => item.作物名稱 && item.作物名稱.match(keyword.value))
+    let filterData = data.filter((item) => item.作物名稱 && item.作物名稱.match(textInput.value))
     //不懂為何用下面這句會報錯誤↓↓
     //filterData = data.filter((item) => item.作物名稱.match(keyword.value))
 
@@ -71,11 +72,15 @@ searchBtn.addEventListener('click', function (e) {
         showList.innerHTML = `<tr><td colspan="7" class="text-center p-3">查無資料 Q_Q</td></tr>`;
     } else {
         renderData(filterData);
-        keyword.value = '';
+        textInput.value = '';
     }
-
+}
+//按Enter可搜尋
+textInput.addEventListener('keypress',function(e){
+    if(e.key == 'Enter'){
+        searchData();
+    }
 })
-
 //排序-------------------------------
 
 //上價(高~低)
