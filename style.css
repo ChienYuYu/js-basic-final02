@@ -45,6 +45,9 @@ body {
   }
 }
 .main {
+  height: 88vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background: #fff;
   border: 5px solid #fff8d45a;
   padding: 2.5rem;
