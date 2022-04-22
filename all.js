@@ -5,12 +5,12 @@ let searchData = []; //使用搜尋篩出來的資料
 let tabStatus = ''; //N04 N05 N06
 //抓DOM------------------------------------
 const tabBtnGroup = document.querySelector('.button-group');
-const tabBtn = document.querySelectorAll('.button-group .btn');
-const textInput = document.querySelector('.text-input');
-const searchBtn = document.querySelector('.search');
+const tabBtn = document.querySelectorAll('.button-group .btn');//蔬果 水果 花卉
+const textInput = document.querySelector('.text-input');//搜尋欄
+const searchBtn = document.querySelector('.search');//搜尋紐
 const sortSelect = document.querySelector('.sort-select');//下拉選單
 const mobileSelect = document.querySelector('.mobile-select');//手機下拉選單
-const sortAdvanced = document.querySelector('.js-sort-advanced');
+const sortAdvanced = document.querySelector('.js-sort-advanced');//
 const showList = document.querySelector('.showList');
 //取得資料-----------------------------------
 getData();
