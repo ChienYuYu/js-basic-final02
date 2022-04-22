@@ -8,13 +8,10 @@ const tabBtnGroup = document.querySelector('.button-group');
 const tabBtn = document.querySelectorAll('.button-group .btn');
 const textInput = document.querySelector('.text-input');
 const searchBtn = document.querySelector('.search');
-const sortSelect = document.querySelector('.sort-select');
+const sortSelect = document.querySelector('.sort-select');//下拉選單
+const mobileSelect = document.querySelector('.mobile-select');//手機下拉選單
 const sortAdvanced = document.querySelector('.js-sort-advanced');
 const showList = document.querySelector('.showList');
-//mobile-select
-const mobileSelect = document.querySelector('.mobile-select');
-
-
 //取得資料-----------------------------------
 getData();
 function getData() {

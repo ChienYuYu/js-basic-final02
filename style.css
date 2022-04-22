@@ -176,3 +176,8 @@ body {
   top: 9px;
   right: -15px;
 }
+@media (max-width: 767px){
+  .fa-caret-up,.fa-caret-down{
+    z-index: -10;
+  }
+}
