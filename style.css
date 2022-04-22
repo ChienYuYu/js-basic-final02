@@ -46,7 +46,7 @@ body {
 }
 .main {
   height: 85vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   background: #fff;
   border: 5px solid #fff8d45a;
