@@ -11,6 +11,9 @@ const searchBtn = document.querySelector('.search');
 const sortSelect = document.querySelector('.sort-select');
 const sortAdvanced = document.querySelector('.js-sort-advanced');
 const showList = document.querySelector('.showList');
+//mobile-select
+const mobileSelect = document.querySelector('.mobile-select');
+
 
 //取得資料-----------------------------------
 getData();
@@ -57,6 +60,7 @@ function tabStatusChange(tabStatus) {
     tabData = data.filter((item) => item.種類代碼 == tabStatus)
     renderData(tabData);
     sortSelect.value ='排序篩選'; //下拉選單恢復預設
+    mobileSelect.value = '排序';//手機板下拉選單恢復預設
 }
 
 //搜尋-----------------------------------
@@ -80,6 +84,7 @@ function search() {
     })
     tabStatus = ''; //tabStatus恢復預設
     sortSelect.value ='排序篩選'; //下拉選單恢復預設
+    mobileSelect.value = '排序';//手機板下拉選單恢復預設
 }
 //按Enter可搜尋
 textInput.addEventListener('keypress', function (e) {
@@ -102,6 +107,7 @@ sortSelect.addEventListener('change', function (e) {
         sortItem('交易量')
     }
 })
+
 function sortItem(value) {
     //假如搜尋欄有值 根據搜尋結果排序/ searchData[]
     if (textInput.value !== '') {
@@ -128,6 +134,7 @@ sortAdvanced.addEventListener('click', function (e) {
         }
         renderData(tabData)
         sortSelect.value = `依${sortPrice}排序`;//下拉選單顯示相對應項目
+        mobileSelect.value =`${sortPrice}`;//手機下拉選單顯示相對應項目
     }
     //假如搜尋欄有值 根據搜尋結果排序 searchData[]
     else if ((e.target.nodeName == 'I') && (textInput.value !== '')) {
@@ -138,7 +145,22 @@ sortAdvanced.addEventListener('click', function (e) {
         }
         renderData(searchData)
         sortSelect.value = `依${sortPrice}排序`;//下拉選單顯示相對應項目
+        mobileSelect.value =`${sortPrice}`;//手機下拉選單顯示相對應項目
     }
 })
 
-
+//手機下拉選單--------------------------
+mobileSelect.addEventListener('change',function(e){
+    let selectItem = e.target.value;
+    if (selectItem == '上價') {
+        sortItem('上價')
+    } else if (selectItem == '中價') {
+        sortItem('中價')
+    } else if (selectItem == '下價') {
+        sortItem('下價')
+    } else if (selectItem == '平均價') {
+        sortItem('平均價')
+    } else if (selectItem == '交易量') {
+        sortItem('交易量')
+    }
+})
