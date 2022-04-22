@@ -3,8 +3,7 @@ let data = [];//初始資料
 let tabData = [];//蔬果 水果 花卉 切換要顯示的資料
 let searchData = []; //使用搜尋篩出來的資料
 let tabStatus = ''; //N04 N05 N06
-
-//抓DOM
+//抓DOM------------------------------------
 const tabBtnGroup = document.querySelector('.button-group');
 const tabBtn = document.querySelectorAll('.button-group .btn');
 const textInput = document.querySelector('.text-input');
@@ -45,7 +44,6 @@ tabBtnGroup.addEventListener('click', function (e) {
     if (e.target.nodeName === 'BUTTON') {
         textInput.value = '';//清空搜尋欄文字
         tabStatus = e.target.dataset.type;
-        //let tabBtn = document.querySelectorAll('.button-group .btn');
         tabBtn.forEach(function (item) {
             item.classList.remove('active');
         })
@@ -68,9 +66,9 @@ function search() {
         alert('請輸入搜尋內容');
         return
     }
-    searchData = data.filter((item) => item.作物名稱 && item.作物名稱.match(textInput.value))
     //不懂為何用下面這句會報錯誤↓↓
-    //searchData = data.filter((item) => item.作物名稱.match(keyword.value))
+    //searchData = data.filter((item) => item.作物名稱.match(textInput.value))
+    searchData = data.filter((item) => item.作物名稱 && item.作物名稱.match(textInput.value))
     if (searchData.length == 0) {
         showList.innerHTML = `<tr><td colspan="7" class="text-center p-3">抱歉...查無資料 >_<</td></tr>`;
     } else {
@@ -80,7 +78,8 @@ function search() {
     tabBtn.forEach(function (item) {
         item.classList.remove('active');
     })
-    tabStatus = '';
+    tabStatus = ''; //tabStatus恢復預設
+    sortSelect.value ='排序篩選'; //下拉選單恢復預設
 }
 //按Enter可搜尋
 textInput.addEventListener('keypress', function (e) {
@@ -88,7 +87,7 @@ textInput.addEventListener('keypress', function (e) {
         search();
     }
 })
-//排序-------------------------------
+//排序I(下拉選單)-------------------------------
 sortSelect.addEventListener('change', function (e) {
     let selectItem = e.target.value;
     if (selectItem == '依上價排序') {
@@ -104,23 +103,23 @@ sortSelect.addEventListener('change', function (e) {
     }
 })
 function sortItem(value) {
-    //搜尋後再依照搜尋結果排序
+    //假如搜尋欄有值 根據搜尋結果排序/ searchData[]
     if (textInput.value !== '') {
         let newData = searchData.sort((a, b) => b[value] - a[value])
         renderData(newData);
     }
-    //按標籤渲染出相對應資料再按排序 (蔬果 水果 花卉)
+    //else根據選的tab排序 (蔬果 水果 花卉)/ tabData[]
     else {
         let newData = tabData.sort((a, b) => b[value] - a[value])
         renderData(newData);
     }
 }
-//進階排序(上下箭頭)------------------------
+//排序II(上下箭頭)------------------------
 sortAdvanced.addEventListener('click', function (e) {
     const sortPrice = e.target.dataset.price
     const sortIcon = e.target.dataset.sort
 
-    //假如搜尋欄為空值 根據選的tab排序 (蔬果 水果 花卉)
+    //假如搜尋欄為空值 根據選的tab排序 (蔬果 水果 花卉) tabData[]
     if ((e.target.nodeName == 'I') && (textInput.value == '')) {
         if (sortIcon == 'up') {
             tabData.sort((a, b) => b[sortPrice] - a[sortPrice])
@@ -128,9 +127,9 @@ sortAdvanced.addEventListener('click', function (e) {
             tabData.sort((a, b) => a[sortPrice] - b[sortPrice])
         }
         renderData(tabData)
-        sortSelect.value = `依${sortPrice}排序`;
+        sortSelect.value = `依${sortPrice}排序`;//下拉選單顯示相對應項目
     }
-    //假如搜尋欄有值 根據搜尋結果排序
+    //假如搜尋欄有值 根據搜尋結果排序 searchData[]
     else if ((e.target.nodeName == 'I') && (textInput.value !== '')) {
         if (sortIcon == 'up') {
             searchData.sort((a, b) => b[sortPrice] - a[sortPrice])
@@ -138,7 +137,7 @@ sortAdvanced.addEventListener('click', function (e) {
             searchData.sort((a, b) => a[sortPrice] - b[sortPrice])
         }
         renderData(searchData)
-        sortSelect.value = `依${sortPrice}排序`;
+        sortSelect.value = `依${sortPrice}排序`;//下拉選單顯示相對應項目
     }
 })
 
